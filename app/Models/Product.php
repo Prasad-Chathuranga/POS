@@ -42,6 +42,6 @@ class Product extends Model
     protected $guarded = [];
 
     public function category(){
-        return $this->hasOne(ProductCate , 'order_id' , 'id')->where('TXN_fee',1);
+        return $this->hasOne(ProductCategories::class , 'id' , 'product_category_id');
     }
 }

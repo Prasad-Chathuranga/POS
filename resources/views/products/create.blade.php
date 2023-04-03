@@ -81,11 +81,21 @@
                                     </label>
                                 </div>
 
+                                <div class="form-group">
+                                    <label class="custom-control custom-checkbox">
+                                        <input type="checkbox" ng-model="data.active" ng-true-value='1'
+                                            ng-false-value='0'
+                                            ng-class="{'is-invalid' : submitted && dataForm.active.$invalid}"
+                                            name="active" id="active" class="custom-control-input"><span
+                                            class="custom-control-label">Active</span>
+                                    </label>
+                                </div>
+
 
                                 <input type="hidden"
                                     ng-init="url='{{ route('products.index') }}'; all_product_categories='{{ route('all_product_categories') }}'; init_select2_product_categories();" />
                                 @if (isset($model))
-                                    <input type="hidden" ng-init="init({{ $model }})" />
+                                    <input type="hidden" ng-init="init({{ $model }}); init_select2_product_categories();" />
                                 @endif
                         </form>
                     </div>

@@ -26,6 +26,7 @@
                             <tr>
                                 <th style="width: 6%">Actions</th>
                                 <th style="width: 3%">#</th>
+                                <th>Category</th>
                                 <th>Name</th>
                                 <th>SOH</th>
                                 <th>Active</th>
@@ -35,18 +36,18 @@
                             @foreach ($products as $key => $product)
                                 <tr>
                                     <td>
-                                        <a href="{{ route('product-categories.edit', $product->id) }}"><i
+                                        <a href="{{ route('products.edit', $product->id) }}"><i
                                                 class="fas fa-pencil-alt text-info"></i></a>
                                         <i ng-click="delete({{ $product->id }})" role="button"
                                             class="fas fas fa-trash-alt text-danger ml-1"></i>
 
                                     </td>
                                     <td>{{$key+1}}</td>
-                                    <td>{{ $product->category }}</td>
+                                    <td>{{ $product->category->name }}</td>
                                     <td>{{ $product->name }}</td>
                                     <td>{{ $product->soh }}</td>
                                     <td>
-                                        @if ($product->active)
+                                        @if($product->active)
                                             <label class="badge badge-success">
                                                 <i class="fa fa-check"></i>
                                             </label></i>

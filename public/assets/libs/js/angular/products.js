@@ -11,6 +11,12 @@ app.controller('ProductsController', ($scope, $http, Loader, $timeout) => {
 
                 $scope.data = response.data.data;
 
+                $('#product_categories').append($('<option>', {
+                    value:  $scope.data.category.id,
+                    text:$scope.data.category.name + ' - SOH (' + $scope.data.category.soh + ')',
+                    selected: true,
+                }));
+
                 if (typeof (initDone) == 'function') {
                     initDone($scope.data);
                 }

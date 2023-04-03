@@ -13,7 +13,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::with('category')->get();
         return view('products.index', compact('products'));
     }
 
@@ -57,25 +57,49 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show($id)
     {
-        //
+        $product = Product::with('category')->findOrFail($id);
+        return response()->json(['data' => $product]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        //
+        return view('products.create' , ['model' => $id]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $product->product_category_id = $request->product_category_id;
+        $product->name = $request->name;
+        $product->soh = $request->soh;
+        $product->price = number_format($request->price, 2);
+        $product->allow_price_change = $request->allow_price_change ? true : false;
+        $product->can_delete = $request->can_delete ? true : false;
+        $product->discountable = $request->discountable ? true : false;
+
+
+        try {
+
+            $product->save();
+            log_event('product updated.' , $product->toArray()  , 'products', $product->id);
+            return response()->json(
+                    ['url' => route('products.edit' , $product->id) , 'message' => 'Product updated.']
+                    );
+
+        } catch (\Exception $ex) {
+            dd($ex);
+            log_error_message($ex);
+            return json_error('Unable to save the information.');
+
+        }
     }
 
     /**
