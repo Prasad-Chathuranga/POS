@@ -32,10 +32,10 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $product = new Product();
-        $product->product_category_id = $request->product_category;
+        $product->product_category_id = $request->product_category_id;
         $product->name = $request->name;
         $product->soh = $request->soh;
-        $product->price = number_format($request->price, 2);
+        $product->price = $request->price;
         $product->allow_price_change = $request->allow_price_change ? true : false;
         $product->can_delete = $request->can_delete ? true : false;
         $product->discountable = $request->discountable ? true : false;
@@ -43,6 +43,10 @@ class ProductController extends Controller
         try {
             $product->save();
             log_event('Prouct created.' , $product->toArray()  , 'productss', $product->id);
+
+            $category = ProductCategories::findOrFail($product->product_category_id);
+            $category->soh = Product::whereProductCategoryId($product->product_category_id)->sum('soh');
+            $product->category()->save($category);
 
             return response()->json(
                     ['url' => route('products.edit' , $product->id) , 'message' => 'Product created.']
@@ -76,20 +80,30 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         $product = Product::findOrFail($id);
         $product->product_category_id = $request->product_category_id;
         $product->name = $request->name;
         $product->soh = $request->soh;
-        $product->price = number_format($request->price, 2);
+        $product->price = $request->price;
         $product->allow_price_change = $request->allow_price_change ? true : false;
         $product->can_delete = $request->can_delete ? true : false;
         $product->discountable = $request->discountable ? true : false;
+        
 
 
         try {
 
+            
             $product->save();
             log_event('product updated.' , $product->toArray()  , 'products', $product->id);
+
+            $category = ProductCategories::findOrFail($product->product_category_id);
+            $category->soh = Product::whereProductCategoryId($product->product_category_id)->sum('soh');
+            $product->category()->save($category);
+
+            log_event('product category soh updated.' , $product->category->toArray()  , 'products', $product->category->id);
+
             return response()->json(
                     ['url' => route('products.edit' , $product->id) , 'message' => 'Product updated.']
                     );

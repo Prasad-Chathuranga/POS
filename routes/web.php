@@ -23,8 +23,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('product-categories', ProductCategoriesController::class);
-Route::get('/all-product-categories', [ProductCategoriesController::class,'getAllProductCategories'])->name('all_product_categories');
-Route::resource('products', ProductController::class);
+Route::group(['middleware' => ['auth']], function() {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::resource('product-categories', ProductCategoriesController::class);
+    Route::get('/all-product-categories', [ProductCategoriesController::class,'getAllProductCategories'])->name('all_product_categories');
+    Route::resource('products', ProductController::class);
+});
+
 

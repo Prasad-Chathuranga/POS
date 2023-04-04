@@ -63,11 +63,11 @@
 
                                 <div class="form-group">
                                     <label class="custom-control custom-checkbox">
-                                        <input type="checkbox" ng-model="data.discounatble" ng-true-value='1'
+                                        <input type="checkbox" ng-model="data.discountable" ng-true-value='1'
                                             ng-false-value='0'
-                                            ng-class="{'is-invalid' : submitted && dataForm.discounatble.$invalid}"
-                                            name="active" id="active" class="custom-control-input"><span
-                                            class="custom-control-label">Discounatble</span>
+                                            ng-class="{'is-invalid' : submitted && dataForm.discountable.$invalid}"
+                                            name="discountable" id="discountable" class="custom-control-input"><span
+                                            class="custom-control-label">Discountable</span>
                                     </label>
                                 </div>
 
@@ -76,8 +76,18 @@
                                         <input type="checkbox" ng-model="data.can_delete" ng-true-value='1'
                                             ng-false-value='0'
                                             ng-class="{'is-invalid' : submitted && dataForm.can_delete.$invalid}"
-                                            name="active" id="active" class="custom-control-input"><span
+                                            name="can_delete" id="can_delete" class="custom-control-input"><span
                                             class="custom-control-label">Can Delete</span>
+                                    </label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="custom-control custom-checkbox">
+                                        <input type="checkbox" ng-model="data.allow_price_change" ng-true-value='1'
+                                            ng-false-value='0'
+                                            ng-class="{'is-invalid' : submitted && dataForm.allow_price_change.$invalid}"
+                                            name="allow_price_change" id="allow_price_change" class="custom-control-input"><span
+                                            class="custom-control-label">Allow Price Change</span>
                                     </label>
                                 </div>
 

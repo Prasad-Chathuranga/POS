@@ -29,7 +29,10 @@
                                 <th>Category</th>
                                 <th>Name</th>
                                 <th>SOH</th>
+                                <th>Price</th>
                                 <th>Active</th>
+                                <th>Discountable</th>
+                                <th>Allow Price Change</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,8 +49,23 @@
                                     <td>{{ $product->category->name }}</td>
                                     <td>{{ $product->name }}</td>
                                     <td>{{ $product->soh }}</td>
+                                    <td>{{ number_format($product->price, 2) }}</td>
                                     <td>
                                         @if($product->active)
+                                            <label class="badge badge-success">
+                                                <i class="fa fa-check"></i>
+                                            </label></i>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($product->discountable)
+                                            <label class="badge badge-success">
+                                                <i class="fa fa-check"></i>
+                                            </label></i>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($product->allow_price_change)
                                             <label class="badge badge-success">
                                                 <i class="fa fa-check"></i>
                                             </label></i>

@@ -46,7 +46,7 @@ app.controller('ProductsController', ($scope, $http, Loader, $timeout) => {
             
         }).on('change', function (event) {
           
-            $scope.data.product_category = $(this).val();
+            $scope.data.product_category_id = $(this).val();
 
         });
 
