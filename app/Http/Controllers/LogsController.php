@@ -12,7 +12,8 @@ class LogsController extends Controller
      */
     public function index()
     {
-        //
+        $logs = Logs::with('user')->orderBy('id', 'desc')->get();
+        return view('logs.index', compact('logs'));
     }
 
     /**
@@ -34,9 +35,19 @@ class LogsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Logs $logs)
+    public function show($id)
     {
-        //
+       
+        $event = Logs::findOrFail($id);
+    
+        $data = 'DATABASE: ' . PHP_EOL . $this->toStr( json_decode($event->context,true) );
+
+        if(!empty($event->request)):
+            $data .= PHP_EOL . PHP_EOL . 'REQUEST:' . PHP_EOL . $this->toStr( json_decode($event->request,true) );
+        endif;
+     
+        return response()->json(['data' => $data ]);
+     
     }
 
     /**
@@ -44,6 +55,7 @@ class LogsController extends Controller
      */
     public function edit(Logs $logs)
     {
+        
         //
     }
 
@@ -61,5 +73,44 @@ class LogsController extends Controller
     public function destroy(Logs $logs)
     {
         //
+    }
+
+    public function getActivity($id){
+
+        // $this->isAllowed('System', 'Activity');
+
+        $event = Logs::findOrFail($id);
+
+        $data = 'DATABASE: ' . PHP_EOL . $this->toStr( json_decode($event->context,true) );
+
+        if(!empty($event->request)):
+            $data .= PHP_EOL . PHP_EOL . 'REQUEST:' . PHP_EOL . $this->toStr( json_decode($event->request,true) );
+        endif;
+
+        return response()->json(['data' => $data ]);
+    }
+
+    protected function toStr($data){
+
+
+
+        $string = '';
+
+
+        foreach($data as $key => $value):
+
+            if(is_array($value)):
+
+                $string .= $key . '=' . $this->toStr($value) .PHP_EOL.PHP_EOL;
+
+            else:
+
+                $string .= $key . '=' . $value . PHP_EOL;
+
+            endif;
+
+        endforeach;
+
+        return $string;
     }
 }

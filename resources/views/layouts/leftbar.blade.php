@@ -80,6 +80,22 @@
                                     </ul>
                                 </div>
                             </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="far fa-fw fa-money-bill-alt"></i>Receipt Management</a>
+                                <div id="submenu-2" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{route('orders.create')}}">Receipts</a>
+                                        </li>
+                                        {{-- <li class="nav-item">
+                                            <a class="nav-link" href="{{route('product-categories.index')}}">Product Categories</a>
+                                        </li> --}}
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('event-logs.index')}}"><i class="fas fa-arrows-alt"></i> Event Logs</a>
+                            </li>
 
                             {{-- <li class="nav-item">
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-rocket"></i>UI Elements</a>

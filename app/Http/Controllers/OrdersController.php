@@ -12,7 +12,7 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        //
+        return view('receipts.index');
     }
 
     /**
@@ -20,7 +20,7 @@ class OrdersController extends Controller
      */
     public function create()
     {
-        //
+        return view('receipts.create');
     }
 
     /**

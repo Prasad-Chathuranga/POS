@@ -41,8 +41,7 @@
                                     <td>
                                         <a href="{{ route('products.edit', $product->id) }}"><i
                                                 class="fas fa-pencil-alt text-info"></i></a>
-                                        <i ng-click="delete({{ $product->id }})" role="button"
-                                            class="fas fas fa-trash-alt text-danger ml-1"></i>
+                                        <a href="" ng-click="delete({{ $product->id }})" role="button"><i class="fas fas fa-trash-alt text-danger ml-1"></i></a>
 
                                     </td>
                                     <td>{{$key+1}}</td>

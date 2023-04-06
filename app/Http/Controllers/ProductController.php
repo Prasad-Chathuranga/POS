@@ -42,17 +42,16 @@ class ProductController extends Controller
 
         try {
             $product->save();
-            log_event('Prouct created.' , $product->toArray()  , 'productss', $product->id);
+            log_event('New Prouct Created' , $product->toArray()  , 'products', $product->id);
 
             $category = ProductCategories::findOrFail($product->product_category_id);
             $category->soh = Product::whereProductCategoryId($product->product_category_id)->sum('soh');
             $product->category()->save($category);
 
             return response()->json(
-                    ['url' => route('products.edit' , $product->id) , 'message' => 'Product created.']
+                    ['url' => route('products.edit' , $product->id) , 'message' => 'New Prouct Created']
                     );
         } catch (\Exception $ex) {
-            dd($ex);
             log_error_message($ex);
             return json_error('Unable to save the information.');
         }
@@ -96,20 +95,19 @@ class ProductController extends Controller
 
             
             $product->save();
-            log_event('product updated.' , $product->toArray()  , 'products', $product->id);
+            log_event('Product Updated' , $product->toArray()  , 'products', $product->id);
 
             $category = ProductCategories::findOrFail($product->product_category_id);
             $category->soh = Product::whereProductCategoryId($product->product_category_id)->sum('soh');
             $product->category()->save($category);
 
-            log_event('product category soh updated.' , $product->category->toArray()  , 'products', $product->category->id);
+            log_event('Product Category SOH Updated' , $product->category->toArray()  , 'products', $product->category->id);
 
             return response()->json(
-                    ['url' => route('products.edit' , $product->id) , 'message' => 'Product updated.']
+                    ['url' => route('products.edit' , $product->id) , 'message' => 'Product Updated']
                     );
 
         } catch (\Exception $ex) {
-            dd($ex);
             log_error_message($ex);
             return json_error('Unable to save the information.');
 
@@ -119,8 +117,49 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+        $product = Product::findOrFail($id);
+
+        try {
+            $product->delete();
+            log_event('Product Deleted.' , $product->toArray()  , 'product_categories', $product->id);
+
+            $category = ProductCategories::findOrFail($product->product_category_id);
+            $category->soh = Product::whereProductCategoryId($product->product_category_id)->sum('soh');
+            $product->category()->save($category);
+            return response()->json(
+                    ['url' => route('products.index') , 'message' => 'Product Deleted']
+                    );
+
+        } catch (\Exception $ex) {
+            log_error_message($ex);
+            return json_error('Unable to save the information.');
+        }
+    }
+
+    public function getAllProductByCategory(Request $request){
+
+        $id = $request->id;
+        $term = $request->term;
+
+        $data = Product::when(!empty($term), function ($q) use ($term) {
+            $q->where('name', 'LIKE', $term . '%');
+        })
+        ->where('product_category_id', $id)
+        ->get();
+        $result = [];
+        foreach ($data as $val) {
+            $result[] = ['id' => $val->id, 'text' => $val->name . " - SOH (" . $val->soh . ")"];
+        }
+        return response()->json(['results' => $result]);
+    }
+
+    public function getProductById(Request $request){
+        
+        $id = $request->id;
+
+        $data = Product::findOrFail($id);
+        return response()->json(['data' => $data]);
     }
 }

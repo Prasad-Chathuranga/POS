@@ -42,10 +42,10 @@ class ProductCategoriesController extends Controller
 
             $productCategory->save();
 
-            log_event('Prouct category created.' , $productCategory->toArray()  , 'product_categories', $productCategory->id);
+            log_event('Prouct Category Created' , $productCategory->toArray()  , 'product_categories', $productCategory->id);
 
             return response()->json(
-                    ['url' => route('product-categories.edit' , $productCategory->id) , 'message' => 'Category created.']
+                    ['url' => route('product-categories.edit' , $productCategory->id) , 'message' => 'Category Created']
                     );
 
         } catch (\Exception $ex) {
@@ -90,9 +90,9 @@ class ProductCategoriesController extends Controller
         try {
 
             $productCategory->save();
-            log_event('product category updated.' , $productCategory->toArray()  , 'product_categories', $productCategory->id);
+            log_event('Product Category Updated' , $productCategory->toArray()  , 'product_categories', $productCategory->id);
             return response()->json(
-                    ['url' => route('product-categories.edit' , $productCategory->id) , 'message' => 'Category updated.']
+                    ['url' => route('product-categories.edit' , $productCategory->id) , 'message' => 'Category Updated']
                     );
 
         } catch (\Exception $ex) {
@@ -112,9 +112,9 @@ class ProductCategoriesController extends Controller
 
         try {
             $productCategory->delete();
-            log_event('product category deleted.' , $productCategory->toArray()  , 'product_categories', $productCategory->id);
+            log_event('Product Category Deleted' , $productCategory->toArray()  , 'product_categories', $productCategory->id);
             return response()->json(
-                    ['url' => route('product-categories.index') , 'message' => 'Category deleted.']
+                    ['url' => route('product-categories.index') , 'message' => 'Category Deleted']
                     );
 
         } catch (\Exception $ex) {
