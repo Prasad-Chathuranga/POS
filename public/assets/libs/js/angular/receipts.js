@@ -79,15 +79,15 @@ app.controller('ReceiptsController', ($scope, $http, Loader, $timeout) => {
         }).on('change', function (event) {
             var found = 0;
             $scope.data.product_id = $(this).val();
-            // $scope.data.products.forEach(element => {
+            $scope.data.products.forEach(element => {
 
-            //     if($scope.data.product_id==element.id){
-            //         found++;
-            //     }
-            // });
-            // if(found==0){
+                if($scope.data.product_id==element.id){
+                    found++;
+                }
+            });
+            if(found==0){
                 $scope.add_product_to_order($scope.data.product_id);
-            // }
+            }
             
        
 

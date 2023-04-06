@@ -12,7 +12,7 @@
     <!-- ============================================================== -->
     <!-- basic form  -->
     <!-- ============================================================== -->
-    <div class="row" ng-controller="ReceiptsController">
+    <div class="row" ng-cloak ng-controller="ReceiptsController">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header d-flex">
