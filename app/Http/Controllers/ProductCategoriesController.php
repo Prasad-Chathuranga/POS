@@ -124,16 +124,29 @@ class ProductCategoriesController extends Controller
     }
 
     public function getAllProductCategories(Request $request){
+        // dd($request);
 
         $category = $request->category;
 
         $data = ProductCategories::when(!empty($category), function ($q) use ($category) {
             $q->where('name', 'LIKE', $category . '%');
         })->get();
+
         $result = [];
         foreach ($data as $val) {
-            $result[] = ['id' => $val->id, 'text' => $val->name . " - SOH (" . $val->soh . ")"];
+            $result[] = ['id' => $val->id, 'title' => $val->name . " - SOH (" . $val->soh . ")"];
         }
-        return response()->json(['results' => $result]);
+        return response()->json(['items' => $result]);
+
+        // $category = $request->category;
+
+        // $data = ProductCategories::when(!empty($category), function ($q) use ($category) {
+        //     $q->where('name', 'LIKE', $category . '%');
+        // })->get();
+        // $result = [];
+        // foreach ($data as $val) {
+        //     $result[] = ['id' => $val->id, 'text' => $val->name . " - SOH (" . $val->soh . ")"];
+        // }
+        // return response()->json(['results' => $result]);
     }
 }

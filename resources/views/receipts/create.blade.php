@@ -28,20 +28,23 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="name" class="col-form-label required">Product Category</label>
-                                        <select class="select2 form-control form-control-lg" id="product_categories" 
+                                        {{-- <select class="select2 form-control form-control-lg" id="product_categories" 
                                             name="product_category">
                                             <option></option>
-                                        </select>
+                                        </select> --}}
+                                        <select id="select-repo" placeholder="Pick a category..." ></select>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="name" class="col-form-label required">Product</label>
-                                        <select class="select2 form-control form-control-lg" id="products" 
+                                        <select id="select-repo2" placeholder="Pick a Product..." ></select>
+
+                                        {{-- <select class="select2 form-control form-control-lg" id="products" 
                                             name="product">
                                             <option></option>
-                                        </select>
+                                        </select> --}}
                                     </div>
                                 </div>
                             </div>
