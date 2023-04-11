@@ -42,4 +42,10 @@ function json_error($message) {
     return response()->json(['message' => $message], 422);
 }
 
+function payment_methods(){
+    return array(
+        1=>'Credit/Debit Card',
+        2=>'Cheque'
+    );
+}
 ?>

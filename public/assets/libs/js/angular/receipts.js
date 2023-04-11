@@ -3,6 +3,7 @@ app.controller('ReceiptsController', ($scope, $http, Loader, $timeout) => {
 
     $scope.data = {};
     $scope.data.products = [];
+    $scope.data.payments = [];
     $scope.data.total = 0;
     $scope.data.total_discount = 0;
     $scope.data.gross_total = 0;
@@ -382,5 +383,37 @@ app.controller('ReceiptsController', ($scope, $http, Loader, $timeout) => {
         .catch((error) => {
             // pnotify('Error', getErrorAsString(error.data), 'error');
         });
+    }
+
+    $scope.addPayment = () =>{
+        var new_payment = {};
+        $scope.data.payments.push(new_payment);
+    }
+
+    $scope.removePayment = function (id) { // remove dynamic fieldsto cargo details
+        if ($scope.data.payments.length > 1){
+            $scope.data.payments.splice(id,1);
+            $scope.calculatePaymentTotal();
+
+            $scope.data.payments.forEach(element => {
+                if(element.receiptGroup == 6){
+                    $scope.is_credit_payment =  true;
+                    $scope.keep_credits_open = true;
+                }else{
+                    $scope.is_credit_payment =  false;
+                    $scope.keep_credits_open = false;
+
+                    $scope.data.crns.forEach(element => {
+                        element.paid = 0;
+                    });
+
+                }
+            });
+
+           
+        }
+
+        
+       
     }
 });
