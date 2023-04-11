@@ -70,4 +70,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function category(){
+        return $this->hasOne(UserCategories::class, 'id', 'user_category_id');
+    }
+
+    public function role(){
+        return $this->hasOne(Roles::class, 'id', 'role_id');
+    }
 }

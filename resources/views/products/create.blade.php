@@ -50,15 +50,6 @@
                                         type="text">
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="custom-control custom-checkbox">
-                                        <input type="checkbox" ng-model="data.allow_price_change" ng-true-value='1'
-                                            ng-false-value='0'
-                                            ng-class="{'is-invalid' : submitted && dataForm.allow_orice_change.$invalid}"
-                                            name="active" id="active" class="custom-control-input"><span
-                                            class="custom-control-label">Allow Price Change</span>
-                                    </label>
-                                </div>
 
 
                                 <div class="form-group">

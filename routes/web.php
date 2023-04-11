@@ -1,9 +1,13 @@
 <?php
 
+use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\LogsController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductCategoriesController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RolesController;
+use App\Http\Controllers\UserCategoriesController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +39,15 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('event-logs', LogsController::class);
     Route::get('/event-logs/{id}','LogsController@getActivity')->name('log.get-activity');
     Route::resource('orders', OrdersController::class);
+    Route::resource('customers', CustomersController::class);
+    Route::resource('roles', RolesController::class);
+    Route::resource('users', UserController::class);
+
+    Route::get('/all-user-categories', [UserCategoriesController::class,'getAllUserCategories'])->name('all_user_categories');
+    Route::get('/all-user-roles', [RolesController::class,'getAllUserRoles'])->name('all_user_roles');
+
+    Route::get('/all-customers', [CustomersController::class,'getAllCustomers'])->name('all_customers');
+    Route::get('/customer-by-id/{id}', [CustomersController::class,'getCustomerById'])->name('customer_by_id');
 
 
 

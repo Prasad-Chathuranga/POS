@@ -38,4 +38,14 @@ use Illuminate\Database\Eloquent\Model;
 class Customers extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
+
+    public function category(){
+        return $this->hasOne(UserCategories::class, 'id', 'user_category_id');
+    }
+
+    public function role(){
+        return $this->hasOne(Roles::class, 'id', 'role_id');
+    }
 }

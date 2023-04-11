@@ -25,163 +25,232 @@
                     <div class="col-md-12 col-md-12 pl-0">
                         <form name="dataForm" novalidate>
                             <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+
+                                        <label>Customer</label>
+        
+                                        <select name="customer_id" id="customer_id"
+                                            ng-class="{'is-invalid' : submitted && dataForm.customer_id.$invalid}"
+                                            ng-model="data.customer_id" class="form-control form-control-sm">
+        
+                                            <option value="">Select</option>
+        
+                                        </select>
+        
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="customer_name" class="required">Code</label>
+                                    <input id="customer_code" name="customer_code" class="form-control form-control-sm"
+                                        ng-model="data.customer.customer_code" ng-class="{'is-invalid' : submitted && dataForm.customer_code.$invalid}"
+                                        type="text">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="customer_name" class="col-form-label required">Name</label>
+                                    <input id="customer_name" name="customer_name" class="form-control form-control-sm"
+                                        ng-model="data.customer.username" ng-class="{'is-invalid' : submitted && dataForm.customer_name.$invalid}"
+                                        type="text">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="customer_mobile" class="col-form-label required">Mobile</label>
+                                    <input id="customer_mobile" name="customer_mobile" class="form-control form-control-sm"
+                                        ng-model="data.customer.mobile" ng-class="{'is-invalid' : submitted && dataForm.customer_mobile.$invalid}"
+                                        type="text">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="customer_phone" class="col-form-label required">Phone</label>
+                                    <input id="customer_phone" name="customer_phone" class="form-control form-control-sm"
+                                        ng-model="data.customer.phone" ng-class="{'is-invalid' : submitted && dataForm.customer_phone.$invalid}"
+                                        type="text">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="customer_email" class="col-form-label required">Email</label>
+                                    <input id="customer_email" name="customer_email" class="form-control form-control-sm"
+                                        ng-model="data.customer.email" ng-class="{'is-invalid' : submitted && dataForm.customer_email.$invalid}"
+                                        type="text">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="name" class="col-form-label required">Product Category</label>
-                                        {{-- <select class="select2 form-control form-control-lg" id="product_categories" 
+                                        <select class="select2 form-control form-control-lg" id="product_categories"
                                             name="product_category">
                                             <option></option>
-                                        </select> --}}
-                                        <select id="select-repo" placeholder="Pick a category..." ></select>
+                                        </select>
+                                        {{-- <select id="select-repo" class="select2" placeholder="Pick a category..." ></select> --}}
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="name" class="col-form-label required">Product</label>
-                                        <select id="select-repo2" placeholder="Pick a Product..." ></select>
+                                        {{-- <select id="select-repo2" placeholder="Pick a Product..." ></select> --}}
 
-                                        {{-- <select class="select2 form-control form-control-lg" id="products" 
-                                            name="product">
+                                        <select class="select2 form-control form-control-lg" id="products" name="product">
                                             <option></option>
-                                        </select> --}}
+                                        </select>
                                     </div>
                                 </div>
                             </div>
-                            
-                        <div class="form-group">
-                            <table class="table table-bordered table-responsive-sm">
 
-                                <thead>
+                            <div class="form-group">
+                                <table class="table table-bordered table-responsive-sm">
 
-                                    <tr>
+                                    <thead>
 
-                                        <th>Item</th>
+                                        <tr>
 
-                                        <th style="width: 150px;">Price</th>
+                                            <th>Item</th>
 
-                                        <th style="width: 175px;">Quantity</th>
+                                            <th style="width: 150px;">Price</th>
 
-                                        <th style="width: 250px;" colspan="2">Discount</th>
+                                            <th style="width: 175px;">Quantity</th>
 
-                                        <th style="width: 150px;">Gross Total</th>
+                                            <th style="width: 250px;" colspan="2">Discount</th>
 
-                                        <th style="width: 70px;"></th>
+                                            <th style="width: 150px;">Gross Total</th>
 
-                                    </tr>
+                                            <th style="width: 70px;"></th>
 
-                                </thead>
+                                        </tr>
 
-                                <tbody>
+                                    </thead>
 
-                                    <tr ng-repeat="(key,product) in data.products">
+                                    <tbody>
 
-                                        <td><p> @{{product.name}}</p>
+                                        <tr ng-repeat="(key,product) in data.products">
 
-                                        {{-- <input type="hidden" name="categoryItem_id" ng-model="data.categoryItem_id">
+                                            <td>
+                                                <p> @{{ product.name }}</p>
+
+                                                {{-- <input type="hidden" name="categoryItem_id" ng-model="data.categoryItem_id">
 
                                         <input type="hidden" name="price" ng-model="data.price"> --}}
 
-                                        </td>
+                                            </td>
 
-                                        <td class="text-right" ng-if="product.allow_price_change != 1">@{{product.price | number : 2}}</td>
+                                            <td class="text-right" ng-if="product.allow_price_change != 1">
+                                                @{{ product.price | number: 2 }}</td>
 
-                                        <td  ng-show="product.allow_price_change == 1">
+                                            <td ng-show="product.allow_price_change == 1">
 
-                                            <input type="number" required maxlength="200"
+                                                <input type="number" min="0" required maxlength="200"
+                                                    ng-class="{'is-invalid' : submitted && dataForm.price.$invalid}"
+                                                    ng-model="product.price" class="form-control allow_numeric  text-right"
+                                                    ng-change="calculateTotal()" />
 
-                                            ng-class="{'is-invalid' : submitted && dataForm.price.$invalid}"
+                                            </td>
 
-                                            ng-model="product.price" class="form-control allow_numeric" ng-change="calculateTotal()" />
+                                            <td>
 
-                                        </td>
+                                                <input type="number" min="0" required maxlength="200"
+                                                    ng-class="{'is-invalid' : submitted && dataForm.quantity.$invalid}"
+                                                    ng-model="product.quantity"
+                                                    class="form-control allow_numeric  text-right"
+                                                    ng-change="calculateTotal()" />
 
-                                        <td>
+                                            </td>
 
-                                            <input type="number" required maxlength="200"
 
-                                            ng-class="{'is-invalid' : submitted && dataForm.quantity.$invalid}"
 
-                                            ng-model="product.quantity" class="form-control allow_numeric" ng-change="calculateTotal()" />
+                                            <td>
 
-                                        </td>
+                                                <select ng-show="product.discountable" ng-model="product.discountType"
+                                                    class="form-control" ng-change="calculateTotal()">
 
-                                        {{-- <td class="text-right">@{{item.discount_display_info}}</td> --}}
+                                                    <option ng-value="2">Fixed</option>
 
-                                        <td ng-if="!product.discountable">
+                                                    <option ng-value="1">%</option>
 
-                                            Fixed
+                                                </select>
+                                                <span ng-if="!product.discountable">Fixed</span>
 
-                                        </td>
-                                        <td ng-if="product.discountable">
+                                            </td>
+                                            <td>
 
-                                            <input type="number" ng-model="product.discount" class="form-control allow_numeric" ng-change="calculateTotal()">
+                                                <input type="number" ng-if="product.discountable"
+                                                    ng-model="product.discount"
+                                                    class="form-control allow_numeric text-right"
+                                                    ng-change="calculateTotal()">
+                                                <span ng-if="!product.discountable">Fixed</span>
+                                            </td>
 
-                                        </td>
-                                        <td ng-if="!product.discountable">
 
-                                            Fixed
+                                            {{-- <td> --}}
 
-                                        </td>
 
-                                        <td>
-
-                                         
 
                                             {{--  <label ng-if="item.discountType==1">%</label> --}}
 
-                                            <select ng-show="product.discountable" ng-model="product.discount_type" class="form-control" ng-change="calculateTotal()">
+                                            {{-- <select ng-show="product.discountable" ng-model="product.discount_type" class="form-control" ng-change="calculateTotal()">
                                                 <option ng-value="2">Fixed</option>
 
                                                 <option ng-value="1">%</option>
 
-                                            </select>
+                                            </select> --}}
 
-                                        </td>
+                                            {{-- </td> --}}
 
-                                        <td class="text-right">@{{item.total_display | number : 2}}</td>
+                                            <td class="text-right">@{{ product.gross_total | number: 2 }}</td>
 
-                                        <td>
+                                            <td>
 
-                                            <div class="button-list">
+                                                <div class="button-list">
 
-                                                <button type="button" ng-click="removeProduct(key)" class="btn btn-round btn-danger-rgba"><i class="fa fa-trash"></i></button>
+                                                    <button type="button" ng-click="removeProduct(key)"
+                                                        class="btn btn-round btn-danger-rgba"><i
+                                                            class="fa fa-trash"></i></button>
 
-                                            </div>
+                                                </div>
 
-                                        </td>
+                                            </td>
 
-                                    </tr>
+                                        </tr>
 
-                                </tbody>
+                                    </tbody>
 
-                                <tfoot>
+                                    <tfoot>
 
-                                    <tr>
+                                        <tr>
 
-                                        <th colspan="5" class="text-right"><strong>Sub Total</strong></th>
+                                            <th colspan="5" class="text-right"><strong>Sub Total</strong></th>
 
-                                        <th class="text-right">@{{data.gross_total | number : 2}}</th>
+                                            <th class="text-right">@{{ data.gross_total | number: 2 }}</th>
 
-                                        <th></th>
+                                            <th></th>
 
-                                    </tr>
-
-
-
-                                    <tr>
-
-                                        <th colspan="5" class="text-right"><strong>Discount</strong></th>
-
-                                        <th class="text-right">@{{data.total_discount | number : 2}}</th>
-
-                                        <th></th>
-
-                                    </tr>
+                                        </tr>
 
 
 
-                                    <tr>
+                                        <tr>
+
+                                            <th colspan="5" class="text-right"><strong>Discount</strong></th>
+
+                                            <th class="text-right">@{{ data.total_discount | number: 2 }}</th>
+
+                                            <th></th>
+
+                                        </tr>
+
+
+
+                                        {{-- <tr>
 
                                         <th colspan="5" class="text-right"><strong>Handling Fee</strong></th>
 
@@ -193,100 +262,35 @@
 
                                         <th></th>
 
-                                    </tr>
+                                    </tr> --}}
 
 
 
-                                    <tr>
+                                        <tr>
 
-                                        <th colspan="5" class="text-right"><strong>Total</strong></th>
+                                            <th colspan="5" class="text-right"><strong>Total</strong></th>
 
-                                        <th class="text-right">@{{data.sub_total | number : 2}}</th>
+                                            <th class="text-right">@{{ data.sub_total | number: 2 }}</th>
 
-                                        <th></th>
+                                            <th></th>
 
-                                    </tr>
+                                        </tr>
 
-                                </tfoot>
+                                    </tfoot>
 
-                            </table>
-                        </div>
-
-                                <div class="form-group pt-3">
-                                    <label for="name" class="col-form-label required">Product Name</label>
-                                    <input id="name" name="name" class="form-control form-control-sm"
-                                        ng-model="data.name" ng-class="{'is-invalid' : submitted && dataForm.name.$invalid}"
-                                        type="text">
-                                </div>
-                                <div class="form-group">
-                                    <label for="name" class="col-form-label required">SOH</label>
-                                    <input id="name" name="soh" class="form-control form-control-sm"
-                                        ng-model="data.soh" ng-class="{'is-invalid' : submitted && dataForm.soh.$invalid}"
-                                        type="text">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="name" class="col-form-label required">Price</label>
-                                    <input id="name" name="soh" class="form-control form-control-sm"
-                                        ng-model="data.price" ng-class="{'is-invalid' : submitted && dataForm.price.$invalid}"
-                                        type="text">
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="custom-control custom-checkbox">
-                                        <input type="checkbox" ng-model="data.allow_price_change" ng-true-value='1'
-                                            ng-false-value='0'
-                                            ng-class="{'is-invalid' : submitted && dataForm.allow_orice_change.$invalid}"
-                                            name="active" id="active" class="custom-control-input"><span
-                                            class="custom-control-label">Allow Price Change</span>
-                                    </label>
-                                </div>
+                                </table>
+                            </div>
 
 
-                                <div class="form-group">
-                                    <label class="custom-control custom-checkbox">
-                                        <input type="checkbox" ng-model="data.discountable" ng-true-value='1'
-                                            ng-false-value='0'
-                                            ng-class="{'is-invalid' : submitted && dataForm.discountable.$invalid}"
-                                            name="discountable" id="discountable" class="custom-control-input"><span
-                                            class="custom-control-label">Discountable</span>
-                                    </label>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="custom-control custom-checkbox">
-                                        <input type="checkbox" ng-model="data.can_delete" ng-true-value='1'
-                                            ng-false-value='0'
-                                            ng-class="{'is-invalid' : submitted && dataForm.can_delete.$invalid}"
-                                            name="can_delete" id="can_delete" class="custom-control-input"><span
-                                            class="custom-control-label">Can Delete</span>
-                                    </label>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="custom-control custom-checkbox">
-                                        <input type="checkbox" ng-model="data.allow_price_change" ng-true-value='1'
-                                            ng-false-value='0'
-                                            ng-class="{'is-invalid' : submitted && dataForm.allow_price_change.$invalid}"
-                                            name="allow_price_change" id="allow_price_change" class="custom-control-input"><span
-                                            class="custom-control-label">Allow Price Change</span>
-                                    </label>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="custom-control custom-checkbox">
-                                        <input type="checkbox" ng-model="data.active" ng-true-value='1'
-                                            ng-false-value='0'
-                                            ng-class="{'is-invalid' : submitted && dataForm.active.$invalid}"
-                                            name="active" id="active" class="custom-control-input"><span
-                                            class="custom-control-label">Active</span>
-                                    </label>
-                                </div>
 
 
-                                <input type="hidden"
-                                    ng-init="url='{{ route('orders.index') }}'; all_product_categories='{{ route('all_product_categories') }}'; init_select2_product_categories();" />
-                                {{-- @if (isset($model))
+                            <input type="hidden"
+                                ng-init="url='{{ route('orders.index') }}'; 
+                                all_product_categories='{{ route('all_product_categories') }}'; 
+                                all_customers='{{route('all_customers')}}';
+                                init_select2_product_categories(); init_select2_products(); 
+                                init_select2_customers();" />
+                            {{-- @if (isset($model))
                                     <input type="hidden" ng-init="init({{ $model }}); init_select2_product_categories();" />
                                 @endif --}}
                         </form>
@@ -302,5 +306,27 @@
 @endsection
 @section('script')
     <script src="{{ asset('assets/libs/js/angular/receipts.js') }}"></script>
+
+    <script>
+        //*
+        $(".allow_decimal").on("input", function(evt) {
+            var self = $(this);
+            self.val(self.val().replace(/[^0-9\.]/g, ''));
+            if ((evt.which != 46 || self.val().indexOf('.') != -1) && (evt.which < 48 || evt.which > 57)) {
+                evt.preventDefault();
+            }
+        });
+        //*
+
+        //*
+        $(".allow_numeric").on("input", function(evt) {
+            var self = $(this);
+            self.val(self.val().replace(/\D/g, ""));
+            if ((evt.which < 48 || evt.which > 57)) {
+                evt.preventDefault();
+            }
+        });
+        //*
+    </script>
 
 @endsection

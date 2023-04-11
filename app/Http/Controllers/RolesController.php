@@ -62,4 +62,9 @@ class RolesController extends Controller
     {
         //
     }
+
+    public function getAllUserRoles(){
+        $roles = Roles::whereActive(1)->get();
+        return response()->json(['data' => $roles]);
+    }
 }

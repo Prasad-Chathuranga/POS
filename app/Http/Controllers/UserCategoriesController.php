@@ -62,4 +62,9 @@ class UserCategoriesController extends Controller
     {
         //
     }
+
+    public function getAllUserCategories(){
+        $categories = UserCategories::whereActive(1)->get();
+        return response()->json(['data' => $categories]);
+    }
 }

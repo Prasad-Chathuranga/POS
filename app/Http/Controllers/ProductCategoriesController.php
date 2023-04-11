@@ -134,9 +134,9 @@ class ProductCategoriesController extends Controller
 
         $result = [];
         foreach ($data as $val) {
-            $result[] = ['id' => $val->id, 'title' => $val->name . " - SOH (" . $val->soh . ")"];
+            $result[] = ['id' => $val->id, 'text' => $val->name . " - SOH (" . $val->soh . ")"];
         }
-        return response()->json(['items' => $result]);
+        return response()->json(['results' => $result]);
 
         // $category = $request->category;
 

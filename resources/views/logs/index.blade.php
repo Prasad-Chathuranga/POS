@@ -11,8 +11,8 @@
                 <div class="card-header d-flex">
                     <h5 class="m-0 pt-1">Event Logs</h5>
                     <div class="widget-bar ml-auto">
-                        <a type="button" href=""
-                            class="btn btn-primary btn-sm text-light disabled">New</a>
+                        {{-- <a type="button" href=""
+                            class="btn btn-light btn-sm text-light disabled">New</a> --}}
                     </div>
                 </div>
                 <div class="card-body">
