@@ -33,6 +33,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereProductCategoryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereSoh($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereUpdatedAt($value)
+ * @property int $active
+ * @property-read \App\Models\ProductCategories|null $category
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereActive($value)
  * @mixin \Eloquent
  */
 class Product extends Model

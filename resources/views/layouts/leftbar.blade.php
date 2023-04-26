@@ -73,10 +73,10 @@
                                 <div id="submenu-1" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{route('products.index')}}">Products</a>
+                                            <a class="nav-link ml-3" href="{{route('products.index')}}"><i class="fas fa-arrow-right"></i>Products</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{route('product-categories.index')}}">Product Categories</a>
+                                            <a class="nav-link ml-3" href="{{route('product-categories.index')}}"><i class="fas fa-arrow-right"></i>Product Categories</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -86,7 +86,7 @@
                                 <div id="submenu-2" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link ml-3" href="{{route('orders.create')}}"><i class="fas fa-arrow-right"></i>Receipts</a>
+                                            <a class="nav-link ml-3" href="{{route('orders.index')}}"><i class="fas fa-arrow-right"></i>Receipts</a>
                                         </li>
                                         {{-- <li class="nav-item">
                                             <a class="nav-link" href="{{route('product-categories.index')}}">Product Categories</a>

@@ -1,12 +1,13 @@
 
 app.controller('ReceiptsController', ($scope, $http, Loader, $timeout) => {
 
-    $scope.data = {};
+    $scope.data = {active:1};
     $scope.data.products = [];
-    $scope.data.payments = [];
+    $scope.data.payments = [{}];
     $scope.data.total = 0;
     $scope.data.total_discount = 0;
     $scope.data.gross_total = 0;
+    $scope.data.payment_total = 0;
     $scope.data.sub_total = 0;
 
 
@@ -227,6 +228,7 @@ app.controller('ReceiptsController', ($scope, $http, Loader, $timeout) => {
                 $scope.data.products.forEach(element => {
                     element.gross_total = 0;
                 });
+               
         })
         .catch((error) => {
             // pnotify('Error', getErrorAsString(error.data), 'error');
@@ -239,10 +241,13 @@ app.controller('ReceiptsController', ($scope, $http, Loader, $timeout) => {
         if($scope.data.products.length >= 1){
             $scope.data.products.splice(id,1);
         }
+        $scope.calculateTotal();
     }
 
     $scope.save = () => {
 
+
+        // console.log($scope.data);
 
         $scope.submitted = true;
         var url = $scope.url;
@@ -268,7 +273,7 @@ app.controller('ReceiptsController', ($scope, $http, Loader, $timeout) => {
 
                 Loader.stop();
 
-                // pnotify('Success', response.data.message, 'success');
+                pnotify('Success', response.data.message, 'success');
 
                 $timeout(() => {
                     window.location = response.data.url;
@@ -276,14 +281,15 @@ app.controller('ReceiptsController', ($scope, $http, Loader, $timeout) => {
 
             })
             .catch((error) => {
-                console.log(error);
-                // pnotify('Error', getErrorAsString(error.data), 'error');
+                // console.log(error);
+                pnotify('Error', getErrorAsString(error.data), 'error');
                 Loader.stop();
             });
 
     };
 
     $scope.calculateTotal = () => {
+
         $scope.data.total = 0;
         $scope.data.total_discount = 0;
         $scope.data.gross_total = 0;
@@ -301,11 +307,10 @@ app.controller('ReceiptsController', ($scope, $http, Loader, $timeout) => {
                 discount = element.discount;
             }
 
-
-            element.gross_total = (element.price-discount)*element.quantity;
-            element.total_display = element.price*element.quantity;
+            element.gross_total = (element.price-discount) * (element.quantity != undefined ? element.quantity : 0);
+            element.total_display = element.price*(element.quantity != undefined ? element.quantity : 0);
             // element.discount = discount;
-            $scope.data.total_discount += element.quantity*discount;
+            $scope.data.total_discount += (element.quantity != undefined ? element.quantity : 0)*discount;
             $scope.data.total += element.gross_total;
             $scope.data.gross_total += element.total_display;
         });
@@ -378,10 +383,18 @@ app.controller('ReceiptsController', ($scope, $http, Loader, $timeout) => {
     $scope.get_customer = (id) => {
         $http.get(location.origin+'/customer-by-id/'+ id)
         .then((response) => {
-            $scope.data.customer = response.data.data;
+            $scope.data.nic = response.data.data.nic;
+            $scope.data.mobile = response.data.data.mobile;
+            $scope.data.username = response.data.data.username;
+            $scope.data.email = response.data.data.email;
+            $scope.data.phone = response.data.data.phone;
+            $scope.data.address = response.data.data.address;
+
+
         })
         .catch((error) => {
-            // pnotify('Error', getErrorAsString(error.data), 'error');
+            // console.log(error);
+            pnotify('Error', getErrorAsString(error.data), 'error');
         });
     }
 
@@ -395,25 +408,37 @@ app.controller('ReceiptsController', ($scope, $http, Loader, $timeout) => {
             $scope.data.payments.splice(id,1);
             $scope.calculatePaymentTotal();
 
-            $scope.data.payments.forEach(element => {
-                if(element.receiptGroup == 6){
-                    $scope.is_credit_payment =  true;
-                    $scope.keep_credits_open = true;
-                }else{
-                    $scope.is_credit_payment =  false;
-                    $scope.keep_credits_open = false;
+            // $scope.data.payments.forEach(element => {
+            //     if(element.receiptGroup == 6){
+            //         $scope.is_credit_payment =  true;
+            //         $scope.keep_credits_open = true;
+            //     }else{
+            //         $scope.is_credit_payment =  false;
+            //         $scope.keep_credits_open = false;
 
-                    $scope.data.crns.forEach(element => {
-                        element.paid = 0;
-                    });
+            //         $scope.data.crns.forEach(element => {
+            //             element.paid = 0;
+            //         });
 
-                }
-            });
+            //     }
+            // });
 
            
         }
 
         
        
+    }
+
+    $scope.calculatePaymentTotal = function(){
+        $scope.data.payment_total = 0;
+        $scope.data.payments.forEach(element => {
+            element.amount = Math.abs(element.amount);
+            $scope.data.payment_total = parseInt($scope.data.payment_total)+parseInt(element.amount);
+        });
+
+        if($scope.data.payment_total > $scope.data.sub_total){
+            return pnotify('Error','Payment total exceeded sub total','error');
+        }
     }
 });

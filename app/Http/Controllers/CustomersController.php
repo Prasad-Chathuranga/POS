@@ -156,7 +156,7 @@ class CustomersController extends Controller
         ->get();
         $result = [];
         foreach ($data as $val) {
-            $result[] = ['id' => $val->id, 'text' => $val->username . " - " . $val->nic . ")"];
+            $result[] = ['id' => $val->id, 'text' => $val->code . " - " . $val->username ];
         }
         return response()->json(['results' => $result]);
     }

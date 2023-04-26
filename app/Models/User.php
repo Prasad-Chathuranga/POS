@@ -39,6 +39,14 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUserCategoryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUsername($value)
+ * @property int $active
+ * @property string|null $last_login
+ * @property-read \App\Models\UserCategories|null $category
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
+ * @property-read \App\Models\Roles|null $role
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereLastLogin($value)
  * @mixin \Eloquent
  */
 class User extends Authenticatable
@@ -70,6 +78,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    const USER_ACTIVE = 1;
 
     public function category(){
         return $this->hasOne(UserCategories::class, 'id', 'user_category_id');

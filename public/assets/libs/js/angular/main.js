@@ -48,7 +48,9 @@ function pnotify(title,text,type){
         icon='ti-close';
     }
 
-    new PNotify({'title': title , 'text' : text , 'type' : type ,'addclass': addClass,'icon': icon, 'delay' : 2000});
+    new PNotify({'title': title , 'text' : text , 'type' : type ,
+    'addclass': addClass,
+    'icon': icon, 'delay' : 2000});
 }
 
 /**

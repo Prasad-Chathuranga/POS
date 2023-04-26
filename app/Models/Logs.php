@@ -31,6 +31,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Logs whereTable($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Logs whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Logs whereUserId($value)
+ * @property-read \App\Models\User|null $user
  * @mixin \Eloquent
  */
 class Logs extends Model

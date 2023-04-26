@@ -31,9 +31,38 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Orders whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Orders whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Orders whereUserId($value)
+ * @property-read \App\Models\Customers|null $customer
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\OrderItems> $items
+ * @property-read int|null $items_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $order_item_details
+ * @property-read int|null $order_item_details_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Payment> $payments
+ * @property-read int|null $payments_count
  * @mixin \Eloquent
  */
 class Orders extends Model
 {
     use HasFactory;
+
+    const ORDER_STATUS_OK = 1;
+    const ORDER_STATUS_ACTIVE = 1;
+    protected $guarded = [];
+
+    public function items(){
+        return $this->hasMany(OrderItems::class , 'order_id' , 'id');
+    }
+
+
+    public function payments(){
+        return $this->hasMany(Payment::class , 'order_id' , 'id');
+    }
+
+    public function customer(){
+        return $this->hasOne(Customers::class , 'id' , 'customer_id');
+    }
+
+    public function order_item_details()
+    {
+        return $this->hasManyThrough(Product::class, OrderItems::class,'order_id','id' ,'id' , 'product_id');
+    }
 }

@@ -31,9 +31,16 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|OrderItems whereProductId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|OrderItems whereQuantity($value)
  * @method static \Illuminate\Database\Eloquent\Builder|OrderItems whereUpdatedAt($value)
+ * @property-read \App\Models\Product|null $item
  * @mixin \Eloquent
  */
 class OrderItems extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
+
+    public function item(){
+        return $this->hasOne(Product::class , 'id' , 'product_id');
+    }
 }

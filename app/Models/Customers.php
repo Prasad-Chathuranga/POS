@@ -33,6 +33,14 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Customers whereUserCategoryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Customers whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Customers whereUsername($value)
+ * @property string $code
+ * @property string $nic
+ * @property string $email
+ * @property-read \App\Models\UserCategories|null $category
+ * @property-read \App\Models\Roles|null $role
+ * @method static \Illuminate\Database\Eloquent\Builder|Customers whereCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Customers whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Customers whereNic($value)
  * @mixin \Eloquent
  */
 class Customers extends Model

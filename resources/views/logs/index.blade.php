@@ -21,6 +21,7 @@
                             <tr>
                                 <th style="width: 1%">Actions</th>
                                 <th style="width: 1%">#</th>
+                                <th style="width: 4%">Timestamp</th>
                                 <th style="width: 5%">User</th>
                                 <th style="width: 8%">Event</th>
                                 <th style="width: 5%">Table</th>
@@ -35,6 +36,7 @@
                                         <a href="javascript:;" ng-click="showInfo({{$log->id}})"><i class="fas fa-binoculars text-info"></i></a>
                                     </td>
                                     <td>{{$key+1}}</td>
+                                    <td>{{ date('Y-m-d h:i:s A', strtotime($log->created_at))}}</td>
                                     <td>{{ $log->user->username }}</td>
                                     <td>{{ $log->event }}</td>
                                     <td>{{ $log->table }}</td>

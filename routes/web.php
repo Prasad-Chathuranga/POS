@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CustomersController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LogsController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductCategoriesController;
@@ -48,6 +49,7 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('/all-customers', [CustomersController::class,'getAllCustomers'])->name('all_customers');
     Route::get('/customer-by-id/{id}', [CustomersController::class,'getCustomerById'])->name('customer_by_id');
+    Route::get('/revenue-stats', [HomeController::class,'getRevenueStats'])->name('revenue_stats');
 
 
 

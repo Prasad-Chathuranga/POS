@@ -35,8 +35,9 @@
                                                 <label>Customer</label>
 
                                                 <select name="customer_id" id="customer_id"
+                                                ng-model="data.customer_id"
                                                     ng-class="{'is-invalid' : submitted && dataForm.customer_id.$invalid}"
-                                                    ng-model="data.customer_id" class="form-control form-control-sm">
+                                                     class="form-control form-control-sm">
 
                                                     <option value="">Select</option>
 
@@ -46,10 +47,10 @@
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label for="customer_name" class="required">Code</label>
-                                                <input id="customer_code" name="customer_code"
-                                                    class="form-control form-control-sm" ng-model="data.customer.code"
-                                                    ng-class="{'is-invalid' : submitted && dataForm.customer_code.$invalid}"
+                                                <label for="nic" class="required">NIC</label>
+                                                <input id="nic" name="nic"
+                                                    class="form-control form-control-sm" required ng-model="data.nic"
+                                                    ng-class="{'is-invalid' : submitted && dataForm.nic.$invalid}"
                                                     type="text">
                                             </div>
                                         </div>
@@ -60,7 +61,7 @@
                                             <div class="form-group">
                                                 <label for="customer_name" class="col-form-label required">Name</label>
                                                 <input id="customer_name" name="customer_name"
-                                                    class="form-control form-control-sm" ng-model="data.customer.username"
+                                                    class="form-control form-control-sm" ng-model="data.username"
                                                     ng-class="{'is-invalid' : submitted && dataForm.customer_name.$invalid}"
                                                     type="text">
                                             </div>
@@ -69,7 +70,7 @@
                                             <div class="form-group">
                                                 <label for="customer_mobile" class="col-form-label required">Mobile</label>
                                                 <input id="customer_mobile" name="customer_mobile"
-                                                    class="form-control form-control-sm" ng-model="data.customer.mobile"
+                                                    class="form-control form-control-sm" ng-model="data.mobile"
                                                     ng-class="{'is-invalid' : submitted && dataForm.customer_mobile.$invalid}"
                                                     type="text">
                                             </div>
@@ -78,7 +79,7 @@
                                             <div class="form-group">
                                                 <label for="customer_phone" class="col-form-label required">Phone</label>
                                                 <input id="customer_phone" name="customer_phone"
-                                                    class="form-control form-control-sm" ng-model="data.customer.phone"
+                                                    class="form-control form-control-sm" ng-model="data.phone"
                                                     ng-class="{'is-invalid' : submitted && dataForm.customer_phone.$invalid}"
                                                     type="text">
                                             </div>
@@ -87,10 +88,19 @@
                                             <div class="form-group">
                                                 <label for="customer_email" class="col-form-label required">Email</label>
                                                 <input id="customer_email" name="customer_email"
-                                                    class="form-control form-control-sm" ng-model="data.customer.email"
+                                                    class="form-control form-control-sm" ng-model="data.email"
                                                     ng-class="{'is-invalid' : submitted && dataForm.customer_email.$invalid}"
                                                     type="text">
                                             </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="customer_address">Address</label>
+                                            <textarea id="customer_address" name="customer_address" class="form-control form-control-sm" ng-model="data.address"></textarea>
+                                        </div>
                                         </div>
                                     </div>
 
@@ -135,10 +145,10 @@
                                                 <tr>
 
                                                     <th>Item</th>
-                                                    <th style="width: 150px;">Price</th>
-                                                    <th style="width: 175px;">Quantity</th>
-                                                    <th style="width: 250px;" colspan="2">Discount</th>
-                                                    <th style="width: 150px;">Gross Total</th>
+                                                    <th style="width: 150px;text-align: right;">Price</th>
+                                                    <th style="width: 175px;text-align: right;">Quantity</th>
+                                                    <th style="width: 250px; text-align: right" colspan="2">Discount</th>
+                                                    <th style="width: 150px; text-align: right">Gross Total</th>
                                                     <th style="width: 70px;"></th>
                                                 </tr>
                                             </thead>
@@ -157,27 +167,30 @@
                                                             ng-change="calculateTotal()" />
                                                     </td>
                                                     <td>
-                                                        <input type="number" min="0" required maxlength="200"
+                                                        <input type="number" min="1" required maxlength="200"
                                                             ng-class="{'is-invalid' : submitted && dataForm.quantity.$invalid}"
                                                             ng-model="product.quantity"
+                                                            placeholder="Quantity"
                                                             class="form-control allow_numeric  text-right"
                                                             ng-change="calculateTotal()" />
                                                     </td>
                                                     <td>
                                                         <select ng-show="product.discountable"
                                                             ng-model="product.discountType" class="form-control"
-                                                            ng-change="calculateTotal()">
-                                                            <option ng-value="2">Fixed</option>
-                                                            <option ng-value="1">%</option>
+                                                            ng-change="calculateTotal()" ng-dropdown>
+                                                            <option ng-option value="" disabled>Type</option>
+                                                            <option ng-option value="2">Fixed</option>
+                                                            <option ng-option value="1">%</option>
                                                         </select>
-                                                        <span ng-if="!product.discountable">Fixed</span>
+                                                        <span ng-if="!product.discountable" class="float-right">Fixed</span>
                                                     </td>
                                                     <td>
                                                         <input type="number" ng-if="product.discountable"
                                                             ng-model="product.discount"
                                                             class="form-control allow_numeric text-right"
+                                                            placeholder="Discount"
                                                             ng-change="calculateTotal()">
-                                                        <span ng-if="!product.discountable">Fixed</span>
+                                                        <span ng-if="!product.discountable" class="float-right">Fixed</span>
                                                     </td>
 
                                                     <td class="text-right">@{{ product.gross_total | number: 2 }}</td>
@@ -247,7 +260,7 @@
 
                                                 <th>Payment Method</th>
 
-                                                <th ng-if="item.payment_method==1">Card Type</th>
+                                                <th>Card Type</th>
 
                                                 <th style="width: 100px;">Account/Cheque/Card Number</th>
 
@@ -286,7 +299,7 @@
 
                                                 </td>
 
-                                                <td ng-if="item.payment_method==1">
+                                                <td>
 
                                                     <select ng-model="item.cardType" class="form-control" >
 
