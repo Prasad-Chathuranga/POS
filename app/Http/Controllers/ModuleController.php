@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Roles;
+use App\Models\Module;
 use Exception;
 use Illuminate\Http\Request;
 
-class RolesController extends Controller
+class ModuleController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $roles = Roles::all();
-        return view('roles.index', compact('roles'));
+        $modules = Module::all();
+        return view('modules.index', compact('modules'));
     }
 
     /**
@@ -22,7 +22,7 @@ class RolesController extends Controller
      */
     public function create()
     {
-        return view('roles.create');
+        return view('modules.create');
     }
 
     /**
@@ -30,21 +30,20 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-        $role = new Roles();
-        $role->name = $request->name;
-        $role->active = $request->active ? true : false ;
+        $module = new Module();
+        $module->name = $request->name;
+        $module->active = $request->active ? true : false ;
 
         try {
-            $role->save();
-            log_event('Role Created' , $role->toArray()  , 'roles', $role->id);
+            $module->save();
+            log_event('Module Created' , $module->toArray()  , 'modules', $module->id);
             return response()->json(
-                    ['url' => route('roles.edit' , $role->id) , 'message' => 'Role Created']
+                    ['url' => route('modules.edit' , $module->id) , 'message' => 'Module Created']
                     );
         } catch (Exception $ex) {
             log_error_message($ex);
             return json_error('Unable to save the information.');
         }
-
     }
 
     /**
@@ -52,8 +51,8 @@ class RolesController extends Controller
      */
     public function show($id)
     {
-        $role = Roles::findOrFail($id);
-        return response()->json(['data' => $role]);
+        $module = Module::findOrFail($id);
+        return response()->json(['data' => $module]);
     }
 
     /**
@@ -61,7 +60,8 @@ class RolesController extends Controller
      */
     public function edit($id)
     {
-        return view('roles.create' , ['model' => $id]);
+        return view('modules.create' , ['model' => $id]);
+        
     }
 
     /**
@@ -69,17 +69,17 @@ class RolesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $role = Roles::findOrFail($id);
-        $role->name = $request->name;
-        $role->active = $request->active ? true : false ;
+        $module = Module::findOrFail($id);
+        $module->name = $request->name;
+        $module->active = $request->active ? true : false ;
 
 
         try {
 
-            $role->save();
-            log_event('Role Updated' , $role->toArray()  , 'roles', $role->id);
+            $module->save();
+            log_event('Module Updated' , $module->toArray()  , 'modules', $module->id);
             return response()->json(
-                    ['url' => route('roles.edit' , $role->id) , 'message' => 'Role Updated']
+                    ['url' => route('modules.edit' , $module->id) , 'message' => 'Module Updated']
                     );
 
         } catch (Exception $ex) {
@@ -95,23 +95,18 @@ class RolesController extends Controller
      */
     public function destroy($id)
     {
-        $role = Roles::findOrFail($id);
+        $module = Module::findOrFail($id);
 
         try {
-            $role->delete();
-            log_event('Role Deleted' , $role->toArray()  , 'product_categories', $role->id);
+            $module->delete();
+            log_event('Module Deleted' , $module->toArray()  , 'modules', $module->id);
             return response()->json(
-                    ['url' => route('roles.index') , 'message' => 'Role Deleted']
+                    ['url' => route('modules.index') , 'message' => 'Module Deleted']
                     );
 
         } catch (Exception $ex) {
             log_error_message($ex);
             return json_error('Unable to save the information.');
         }
-    }
-
-    public function getAllUserRoles(){
-        $roles = Roles::whereActive(1)->get();
-        return response()->json(['data' => $roles]);
     }
 }

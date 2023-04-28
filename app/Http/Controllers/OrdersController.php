@@ -19,7 +19,7 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        $orders = Orders::with('customer','payments','items','order_item_details')->get();
+        $orders = Orders::with('customer.order_count','payments','items','order_item_details')->orderByDesc('id')->get();
         return view('receipts.index', compact('orders'));
     }
 
@@ -195,5 +195,10 @@ class OrdersController extends Controller
     public function destroy(Orders $orders)
     {
         //
+    }
+
+    public function getOrderDetails($id){
+        $order = Orders::with('customer','payments','items','order_item_details')->findOrFail($id);
+        return view('receipts.view', compact('order'));
     }
 }

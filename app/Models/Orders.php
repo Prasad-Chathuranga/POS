@@ -38,6 +38,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $order_item_details_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Payment> $payments
  * @property-read int|null $payments_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\OrderItems> $items
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $order_item_details
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Payment> $payments
  * @mixin \Eloquent
  */
 class Orders extends Model
@@ -65,4 +68,5 @@ class Orders extends Model
     {
         return $this->hasManyThrough(Product::class, OrderItems::class,'order_id','id' ,'id' , 'product_id');
     }
+
 }

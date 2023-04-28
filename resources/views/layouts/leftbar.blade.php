@@ -98,11 +98,21 @@
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-1"><i class="fa-fw fab fa-accessible-icon"></i>Access Management</a>
                                 <div id="submenu-3" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
+                                       
+                                        <li class="nav-item">
+                                            <a class="nav-link ml-3" href="{{route('users.index')}}"><i class="fas fa-arrow-right"></i>User Registry</a>
+                                        </li>
                                         <li class="nav-item">
                                             <a class="nav-link ml-3" href="{{route('roles.index')}}"><i class="fas fa-arrow-right"></i>Roles</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link ml-3" href="{{route('users.index')}}"><i class="fas fa-arrow-right"></i>User Registry</a>
+                                            <a class="nav-link ml-3" href="{{route('role_perm')}}"><i class="fas fa-arrow-right"></i>Role Permissions</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ml-3" href="{{route('perm_index')}}"><i class="fas fa-arrow-right"></i>Permissions</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ml-3" href="{{route('modules.index')}}"><i class="fas fa-arrow-right"></i>Modules</a>
                                         </li>
                                     </ul>
                                 </div>

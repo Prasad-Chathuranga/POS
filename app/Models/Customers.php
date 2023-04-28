@@ -41,6 +41,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Customers whereCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Customers whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Customers whereNic($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Orders> $order_count
+ * @property-read int|null $order_count_count
  * @mixin \Eloquent
  */
 class Customers extends Model
@@ -55,5 +57,9 @@ class Customers extends Model
 
     public function role(){
         return $this->hasOne(Roles::class, 'id', 'role_id');
+    }
+
+    public function order_count(){
+        return $this->hasMany(Orders::class, 'customer_id', 'id');
     }
 }

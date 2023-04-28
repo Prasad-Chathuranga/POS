@@ -3,7 +3,9 @@
 use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LogsController;
+use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductCategoriesController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RolesController;
@@ -40,9 +42,12 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('event-logs', LogsController::class);
     Route::get('/event-logs/{id}','LogsController@getActivity')->name('log.get-activity');
     Route::resource('orders', OrdersController::class);
+    Route::get('/view-order/{id}', [OrdersController::class,'getOrderDetails'])->name('view_order');
     Route::resource('customers', CustomersController::class);
     Route::resource('roles', RolesController::class);
     Route::resource('users', UserController::class);
+    Route::resource('modules', ModuleController::class);
+    // Route::resource('permission', PermissionController::class);
 
     Route::get('/all-user-categories', [UserCategoriesController::class,'getAllUserCategories'])->name('all_user_categories');
     Route::get('/all-user-roles', [RolesController::class,'getAllUserRoles'])->name('all_user_roles');
@@ -51,6 +56,18 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/customer-by-id/{id}', [CustomersController::class,'getCustomerById'])->name('customer_by_id');
     Route::get('/revenue-stats', [HomeController::class,'getRevenueStats'])->name('revenue_stats');
 
+Route::get('/permissions' , [PermissionController::class,'index'] )->name('perm_index');
+Route::post('/permissions' ,[PermissionController::class,'getModules'] );
+Route::post('/permissions/{module}/save' , [PermissionController::class,'savePermissions'] );
+Route::post('/permissions/{module}' , [PermissionController::class,'getPermissions'] );
+
+
+
+Route::get('/role-permissions' , [PermissionController::class,'rolePermissions'])->name('role_perm');
+Route::post('/role-permissions' , [PermissionController::class,'getRolePermissions']);
+
+Route::post('/role-permissions/get-role-permission/{roleID}' , [PermissionController::class,'getModuleWisePermission']);
+Route::post('/role-permissions/save-role-permission/{roleID}' , [PermissionController::class,'saveModuleWisePermission']);
 
 
 });

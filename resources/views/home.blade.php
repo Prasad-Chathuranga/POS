@@ -12,7 +12,7 @@
                 <div class="card-body">
                     <h5 class="text-muted">Total Revenue (@{{data.currentYear}})</h5>
                     <div class="metric-value d-inline-block">
-                        <h1 class="mb-1">LKR @{{data.totalRevenue | number:2}}</h1>
+                        <h1 class="mb-1">LKR @{{data.currentYearRevenue | number:2}}</h1>
                     </div>
                     <div ng-if="data.revenueYearPrecentageStatus==1" class="metric-label d-inline-block float-right text-success font-weight-bold">
                         <span><i class="fa fa-fw fa-arrow-up"></i></span><span>@{{data.revenueYearPrecentage}}</span>
@@ -103,7 +103,7 @@
                     <div id="morris_totalrevenue"></div>
                 </div>
                 <div class="card-footer">
-                    <p class="display-7 font-weight-bold"><span class="text-primary d-inline-block">$26,000</span><span class="text-success float-right">+9.45%</span></p>
+                    <p class="display-7 font-weight-bold"><span class="text-primary d-inline-block">LKR @{{data.totalRevenue | number:2}}</span><span class="text-success float-right">@{{data.totalOrders}} Orders</span></p>
                 </div>
             </div>
         </div>

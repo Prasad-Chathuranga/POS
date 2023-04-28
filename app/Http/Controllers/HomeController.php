@@ -161,6 +161,10 @@ class HomeController extends Controller
             ->whereYear('created_at', '=', $data['currentYear'])
             ->count()];
         }
+
+        $data['totalOrders'] = Orders::whereActive(Orders::ORDER_STATUS_ACTIVE)
+        ->whereStatus(Orders::ORDER_STATUS_OK)
+        ->count();
     
         return response()->json(['data' => $data]);
     }

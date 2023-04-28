@@ -25,7 +25,7 @@
                         <thead>
                             <tr>
                                 <th style="width: 6%">Actions</th>
-                                <th style="width: 3%">#</th>
+                                <th style="width: 3%">Serial</th>
                                 <th>Customer</th>
                                 <th>Email</th>
                                 <th>Mobile</th>
@@ -39,9 +39,15 @@
                                 <tr>
                                     <td>
                                         <a href="" ng-click="delete({{ $order->id }})" role="button"><i class="fas fas fa-trash-alt text-danger ml-1"></i></a>
-
+                                        <a href="{{route('view_order', $order->id)}}" role="button"><i class="fas fas fa-binoculars text-info ml-1"></i></a>
                                     </td>
-                                    <td>{{$key+1}}</td>
+                                    <td>{{$order->id}}
+                                        <span class="letter-circle bg-secondary" title="" data-toggle="tooltip" @if($order->customer->order_count->count() > 1) data-original-title="Recurring Customer" @else data-original-title="New Customer" @endif;>{{$order->customer->order_count->count() > 1 ? 'R':'N'}}</span> 
+                                        @if($order->status == $order::ORDER_STATUS_OK && $order->active == $order::ORDER_STATUS_ACTIVE)
+                                            <label class="badge badge-success">
+                                                Completed
+                                            </label>
+                                        @endif</td>
                                     <td>{{ $order->customer->username }}</td>
                                     <td>{{ $order->customer->email }}</td>
                                     <td>{{ $order->customer->mobile}}</td>
@@ -77,6 +83,7 @@
                         previous: 'Prev'
                     }
                 },
+                "ordering": false,
                 'pageLength': 25,
                 "columnDefs": [{
                     "orderable": false,
