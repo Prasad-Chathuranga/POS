@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('mobile');
             $table->string('phone');
+            $table->string('nic');
             $table->tinyInteger('active');
             $table->timestamps();
 

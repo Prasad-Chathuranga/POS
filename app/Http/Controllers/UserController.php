@@ -111,6 +111,19 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        try {
+            $user->delete();
+            log_event('User Deleted.' , $user->toArray()  , 'users', $user->id);
+
+            return response()->json(
+                    ['url' => route('users.index') , 'message' => 'User Deleted']
+                    );
+
+        } catch (\Exception $ex) {
+            log_error_message($ex);
+            return json_error('Unable to save the information.');
+        }
     }
 }

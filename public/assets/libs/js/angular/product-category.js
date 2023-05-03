@@ -2,6 +2,7 @@
 app.controller('ProductCategoryController', ($scope, $http, Loader, $timeout) => {
 
     $scope.data = {};
+    $scope.data.active = 1;
 
 
     $scope.init = (id) => {

@@ -43,6 +43,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/event-logs/{id}','LogsController@getActivity')->name('log.get-activity');
     Route::resource('orders', OrdersController::class);
     Route::get('/view-order/{id}', [OrdersController::class,'getOrderDetails'])->name('view_order');
+    Route::get('/print-order/{id}', [OrdersController::class,'printOrder'])->name('print_order');
+
     Route::resource('customers', CustomersController::class);
     Route::resource('roles', RolesController::class);
     Route::resource('users', UserController::class);

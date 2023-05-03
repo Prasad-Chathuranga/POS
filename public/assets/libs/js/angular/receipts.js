@@ -1,5 +1,5 @@
 
-app.controller('ReceiptsController', ($scope, $http, Loader, $timeout) => {
+app.controller('OrdersController', ($scope, $http, Loader, $timeout) => {
 
     $scope.data = {active:1};
     $scope.data.products = [];

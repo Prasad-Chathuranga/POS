@@ -16,7 +16,6 @@ return new class extends Migration
             $table->unsignedBigInteger('product_category_id');
             $table->string('name');
             $table->string('soh');
-            $table->string('mobile');
             $table->float('price');
             $table->tinyInteger('allow_price_change');
             $table->tinyInteger('can_delete');

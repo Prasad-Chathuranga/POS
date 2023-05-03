@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Receipts')
-@section('active', 'Receipts')
+@section('title', 'Orders')
+@section('active', 'Orders')
 
 @section('breadcrumbs')
     <li class="breadcrumb-item">
-        <a href="#">Receipt Management</a>
+        <a href="#">Order Management</a>
     </li>
 @endsection
 
@@ -14,7 +14,7 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header d-flex">
-                    <h5 class="m-0 pt-1">Receipts</h5>
+                    <h5 class="m-0 pt-1">Orders</h5>
                     <div class="widget-bar ml-auto">
                         <a type="button" href="{{ route('orders.create') }}"
                             class="btn btn-primary btn-sm text-light">New</a>
@@ -40,6 +40,7 @@
                                     <td>
                                         <a href="" ng-click="delete({{ $order->id }})" role="button"><i class="fas fas fa-trash-alt text-danger ml-1"></i></a>
                                         <a href="{{route('view_order', $order->id)}}" role="button"><i class="fas fas fa-binoculars text-info ml-1"></i></a>
+                                        <a href="{{route('print_order', $order->id)}}" role="button"><i class="fas fas fa-print text-primary ml-1"></i></a>
                                     </td>
                                     <td>{{$order->id}}
                                         <span class="letter-circle bg-secondary" title="" data-toggle="tooltip" @if($order->customer->order_count->count() > 1) data-original-title="Recurring Customer" @else data-original-title="New Customer" @endif;>{{$order->customer->order_count->count() > 1 ? 'R':'N'}}</span> 
@@ -93,5 +94,5 @@
             });
         });
     </script>
-    <script src="{{ asset('assets/libs/js/angular/orders.js') }}"></script>
+    <script src="{{ asset('assets/libs/js/angular/receipts.js') }}"></script>
 @endsection

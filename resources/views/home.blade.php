@@ -208,5 +208,7 @@
     <script src="{{asset('assets/vendor/charts/morris-bundle/raphael.min.js')}}"></script>
     <script src="{{asset('assets/vendor/charts/morris-bundle/morris.js')}}"></script>
     <script src="{{asset('assets/vendor/charts/c3charts/C3chartjs.js')}}"></script>
+    <script src="{{asset('assets/vendor/charts/chartist-bundle/chartist.min.js')}}"></script>
+
     <script src="{{ asset('assets/libs/js/angular/home.js') }}"></script>
 @endsection

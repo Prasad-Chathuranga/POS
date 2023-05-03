@@ -39,6 +39,8 @@ class ProductController extends Controller
         $product->allow_price_change = $request->allow_price_change ? true : false;
         $product->can_delete = $request->can_delete ? true : false;
         $product->discountable = $request->discountable ? true : false;
+        $product->active = $request->active ? true : false;
+        
 
         try {
             $product->save();
@@ -88,6 +90,7 @@ class ProductController extends Controller
         $product->allow_price_change = $request->allow_price_change ? true : false;
         $product->can_delete = $request->can_delete ? true : false;
         $product->discountable = $request->discountable ? true : false;
+        $product->active = $request->active ? true : false;
         
 
 

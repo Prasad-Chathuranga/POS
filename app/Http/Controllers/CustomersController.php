@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customers;
+use App\Models\Roles;
 use App\Models\User;
+use App\Models\UserCategories;
 use Illuminate\Http\Request;
 
 class CustomersController extends Controller
@@ -35,8 +37,8 @@ class CustomersController extends Controller
     {
         //
         $customer = new Customers();
-        $customer->role_id = 2;
-        $customer->user_category_id = 2;
+        $customer->role_id = Roles::whereName('Customer')->first()->id;
+        $customer->user_category_id = UserCategories::whereName('External')->first()->id;
         $customer->username = $request->username;
         $customer->address = $request->address;
         $customer->mobile = $request->mobile;
@@ -46,12 +48,14 @@ class CustomersController extends Controller
         $customer->active = $request->active ? true : false;
 
         $user = new User();
-        $user->role_id = 2;
-        $user->user_category_id = 2;
+        $user->role_id = Roles::whereName('Customer')->first()->id;
+        $user->user_category_id = UserCategories::whereName('External')->first()->id;
         $user->username = $customer->username;
         $user->email = $customer->email;
         $user->mobile = $customer->mobile;
         $user->password = bcrypt('test');
+        $user->active = $user::USER_ACTIVE;
+
 
         $user->save();
 

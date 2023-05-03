@@ -95,13 +95,13 @@ class HomeController extends Controller
             Orders::whereActive(Orders::ORDER_STATUS_ACTIVE)
             ->whereStatus(Orders::ORDER_STATUS_OK)
             ->whereYear('created_at', '=', $data['currentYear'])
-            ->average('amount');
+            ->average('amount') ?? 0;
 
         $data['averageOrderAmountPreviousYear'] =
             Orders::whereActive(Orders::ORDER_STATUS_ACTIVE)
             ->whereStatus(Orders::ORDER_STATUS_OK)
             ->whereYear('created_at', '=', $data['previousYear'])
-            ->average('amount');
+            ->average('amount') ?? 0;
 
         for ($i = 1; $i <= 12; $i++) {
             $data['monthlyOrders'][] = Orders::whereActive(Orders::ORDER_STATUS_ACTIVE)
@@ -115,7 +115,7 @@ class HomeController extends Controller
         $month_diff = $data['currentMonthRevenue'] - $data['previousMonthRevenue'];
         $month_more_less = $month_diff > 0 ? 1 : 0;
         $month_diff = abs($month_diff);
-        $month_percentChange = ($month_diff / intval($data['currentMonthRevenue'])) * 100;
+        $month_percentChange = $data['currentMonthRevenue'] != 0 ? ($month_diff / intval($data['currentMonthRevenue'])) * 100 : 0;
 
         $data['revenueMonthPrecentage'] = number_format($month_percentChange) . '%';
         $data['revenueMonthPrecentageStatus'] = $month_more_less;
@@ -124,7 +124,7 @@ class HomeController extends Controller
         $year_diff = $data['currentYearRevenue'] - $data['previousYearRevenue'];
         $year_more_less = $year_diff > 0 ? 1 : 0;
         $year_diff = abs($year_diff);
-        $year_percentChange = ($year_diff / intval($data['currentYearRevenue'])) * 100;
+        $year_percentChange = $data['currentYearRevenue'] != 0 ? ($year_diff / intval($data['currentYearRevenue'])) * 100 : 0;
 
         $data['revenueYearPrecentage'] = number_format($year_percentChange) . '%';
         $data['revenueYearPrecentageStatus'] = $year_more_less;
@@ -133,7 +133,7 @@ class HomeController extends Controller
         $year_diff_order_avg = $data['averageOrderAmountCurrentYear'] - $data['averageOrderAmountPreviousYear'];
         $year_more_less_order_avg = $year_diff_order_avg > 0 ? 1 : 0;
         $year_diff_order_avg = abs($year_diff_order_avg);
-        $year_percentChange_order_avg = ($year_diff_order_avg / intval($data['averageOrderAmountCurrentYear'])) * 100;
+        $year_percentChange_order_avg = $data['averageOrderAmountCurrentYear'] != 0 ? ($year_diff_order_avg / intval($data['averageOrderAmountCurrentYear'])) * 100 : 0;
 
         $data['revenueYearPrecentageAverageOrder'] = number_format($year_percentChange_order_avg) . '%';
         $data['revenueYearPrecentageStatusAverageOrder'] = $year_more_less_order_avg;

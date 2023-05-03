@@ -1,22 +1,22 @@
 @extends('layouts.app')
 
-@section('title', 'Products')
+@section('title', 'Orders')
 @section('active', 'New')
 
 @section('breadcrumbs')
-    <li class="breadcrumb-item"><a href="#">Receipt Management</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('orders.index') }}">Receipts</a></li>
+    <li class="breadcrumb-item"><a href="#">Order Management</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('orders.index') }}">Orders</a></li>
 @endsection
 
 @section('content')
     <!-- ============================================================== -->
     <!-- basic form  -->
     <!-- ============================================================== -->
-    <div class="row" ng-cloak ng-controller="ReceiptsController">
+    <div class="row" ng-cloak ng-controller="OrdersController">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header d-flex">
-                    <h5 class="m-0 pt-1">New Receipt</h5>
+                    <h5 class="m-0 pt-1">New Order</h5>
                     <div class="widget-bar ml-auto">
                         <a type="button" ng-click="save()" class="btn btn-success btn-sm text-light">Save</a>
                     </div>
@@ -283,9 +283,9 @@
                                             <tr ng-repeat="(key,item) in data.payments">
 
                                                 <td>
-                                                    <select  required name="receiptGroup" id="receiptGroup"
+                                                    <select  required name="orderGroup" id="orderGroup"
 
-                                                            ng-class="{'is-invalid' : submitted && dataForm.receiptGroup.$invalid}"
+                                                            ng-class="{'is-invalid' : submitted && dataForm.orderGroup.$invalid}"
 
                                                         ng-model="item.payment_method" class="form-control">
 
@@ -353,7 +353,7 @@
 
                                                 </td>
 
-                                                <td><input type="text" required ng-disabled="item.receiptGroup==6"  maxlength="200" ng-change="calculatePaymentTotal()" class="allow_decimal"
+                                                <td><input type="text" required ng-disabled="item.orderGroup==6"  maxlength="200" ng-change="calculatePaymentTotal()" class="allow_decimal"
 
                                                     ng-class="{'is-invalid' : submitted && dataForm.amount.$invalid}"
 

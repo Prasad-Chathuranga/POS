@@ -82,11 +82,11 @@
                                 </div>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="far fa-fw fa-money-bill-alt"></i>Receipt Management</a>
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="far fa-fw fa-money-bill-alt"></i>Order Management</a>
                                 <div id="submenu-2" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link ml-3" href="{{route('orders.index')}}"><i class="fas fa-arrow-right"></i>Receipts</a>
+                                            <a class="nav-link ml-3" href="{{route('orders.index')}}"><i class="fas fa-arrow-right"></i>Orders</a>
                                         </li>
                                         {{-- <li class="nav-item">
                                             <a class="nav-link" href="{{route('product-categories.index')}}">Product Categories</a>

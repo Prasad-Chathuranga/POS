@@ -152,6 +152,7 @@ class OrdersController extends Controller
             }
 
            DB::commit();
+        //    $this->printOrder($order->id);
            return response()->json(['url' => route('orders.index') , 'message' => 'New Order Placed']);
 
 
@@ -200,5 +201,30 @@ class OrdersController extends Controller
     public function getOrderDetails($id){
         $order = Orders::with('customer','payments','items','order_item_details')->findOrFail($id);
         return view('receipts.view', compact('order'));
+    }
+
+    public function printOrder($id){
+
+        $order = Orders::with('customer','payments','items.item','order_item_details')->findOrFail($id);
+
+        $page =  view('receipts.print',compact('order'));
+
+        $stylesheet = file_get_contents('assets/libs/css/invoice_pdf.css');
+
+
+            $mpdf = new \Mpdf\Mpdf([
+                'mode' => 'utf-8',
+                'format'=>[216,200],
+                'margin_left' => 0,
+                'margin_right' => 0,
+                'margin_top' => 10,
+                'margin_bottom' => 10,
+                'margin_header' => 0,
+                'margin_footer' => 0,]);
+            $mpdf->WriteHTML($stylesheet, \Mpdf\HTMLParserMode::HEADER_CSS);
+            $mpdf->WriteHTML($page, \Mpdf\HTMLParserMode::HTML_BODY);
+            $mpdf->SetTitle('Print');
+            $mpdf->Output('_draft.pdf', 'I');
+       
     }
 }
