@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('mobile');
             $table->string('password');
             $table->tinyInteger('active');
-            $table->timestamp('last_login')->default(null);
+            $table->timestamp('last_login')->nullable();
             $table->rememberToken();
             $table->timestamps();
 

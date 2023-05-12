@@ -41,6 +41,7 @@
                                         <a href="" ng-click="delete({{ $order->id }})" role="button"><i class="fas fas fa-trash-alt text-danger ml-1"></i></a>
                                         <a href="{{route('view_order', $order->id)}}" role="button"><i class="fas fas fa-binoculars text-info ml-1"></i></a>
                                         <a href="{{route('print_order', $order->id)}}" role="button"><i class="fas fas fa-print text-primary ml-1"></i></a>
+                                        {{-- <a href="{{route('refund', $order->id)}}" role="button"><i class="fas fas fa-refund text-primary ml-1"></i></a> --}}
                                     </td>
                                     <td>{{$order->id}}
                                         <span class="letter-circle bg-secondary" title="" data-toggle="tooltip" @if($order->customer->order_count->count() > 1) data-original-title="Recurring Customer" @else data-original-title="New Customer" @endif;>{{$order->customer->order_count->count() > 1 ? 'R':'N'}}</span> 

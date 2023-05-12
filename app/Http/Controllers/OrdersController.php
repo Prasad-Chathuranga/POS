@@ -208,13 +208,13 @@ class OrdersController extends Controller
         $order = Orders::with('customer','payments','items.item','order_item_details')->findOrFail($id);
 
         $page =  view('receipts.print',compact('order'));
-
+    
         $stylesheet = file_get_contents('assets/libs/css/invoice_pdf.css');
 
 
             $mpdf = new \Mpdf\Mpdf([
                 'mode' => 'utf-8',
-                'format'=>[216,200],
+                'format'=> 'A4',
                 'margin_left' => 0,
                 'margin_right' => 0,
                 'margin_top' => 10,

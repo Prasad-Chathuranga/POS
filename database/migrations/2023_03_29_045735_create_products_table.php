@@ -20,6 +20,7 @@ return new class extends Migration
             $table->tinyInteger('allow_price_change');
             $table->tinyInteger('can_delete');
             $table->tinyInteger('discountable');
+            $table->tinyInteger('active');
             $table->timestamps();
 
             $table->foreign('product_category_id')->references('id')->on('product_categories');

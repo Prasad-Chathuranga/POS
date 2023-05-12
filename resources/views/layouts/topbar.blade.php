@@ -95,13 +95,13 @@
                         </li>  --}}
                         <li class="nav-item dropdown nav-user">
                             <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <h5 class="d-inline">Hi, {{Auth::user()->username}}</h5><img src="{{asset('assets/images/avatar-1.jpg')}}" alt="" class="user-avatar-md rounded-circle ml-2"></a>
+                                <h5 class="d-inline">Hi, {{Auth::user()->username}}</h5><img src={{asset('assets/images/profile/'. Auth::user()->image) ?? null}} alt="" class="user-avatar-md rounded-circle ml-2"></a>
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
                                 {{-- <div class="nav-user-info">
                                     <h5 class="mb-0 text-white nav-user-name">John Abraham </h5>
                                     <span class="status"></span><span class="ml-2">Available</span>
                                 </div> --}}
-                                <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
+                                <a class="dropdown-item" href="{{route('profile')}}"><i class="fas fa-user mr-2"></i>Profile</a>
                                 {{-- <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a> --}}
                                 <a class="dropdown-item" onclick="logout(event)" href="{{route('logout')}}"><i class="fas fa-power-off mr-2"></i>Logout</a>
                                 <form name="logoutForm" id="logoutForm" method="post" action="{{route('logout')}}">@csrf</form>

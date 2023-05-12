@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_category_id');
             $table->string('username');
             $table->string('code');
+            $table->string('email');
             $table->string('address');
             $table->string('mobile');
             $table->string('phone');

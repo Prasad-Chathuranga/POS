@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customers;
+use App\Models\Orders;
 use App\Models\Roles;
 use App\Models\User;
 use App\Models\UserCategories;
@@ -17,6 +18,9 @@ class CustomersController extends Controller
     {
         //
         $customers = Customers::with('category','role')->where('active',1)->get();
+        foreach ($customers as $key => $value) {
+           $value->earnings = Orders::whereCustomerId($value->id)->sum('paid');
+        }
         return view('customers.index',compact('customers'));
     }
 

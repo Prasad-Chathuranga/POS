@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Roles;
 use App\Models\User;
 use App\Models\UserCategories;
+use Auth;
+use DB;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -125,5 +127,97 @@ class UserController extends Controller
             log_error_message($ex);
             return json_error('Unable to save the information.');
         }
+    }
+
+    public function getProfile(){
+        $model = auth()->user()->id;
+        return view('users.profile', compact('model'));
+    }
+
+    public function saveProfile(Request $request){
+
+        $rules = [
+            'username' => 'required|max:50',
+    #        'lastName' => 'required|max:20',
+         #   'email' => 'required|max:100|email|unique:users,email',
+         #   'username' => 'required|max:100|unique:users,username',
+         #   'role_id' => 'required|exists:roles,id',
+            'imageFile' => 'nullable|image|max:2048',
+            'confirm' => 'required_with:password|min:6|max:20'
+        ];
+
+        $this->validate($request, $rules , [
+            'confirm.regex'=>'Password should be at least 6 characters long should contain uppercase letter,lowercase letter and number'
+        ]);
+
+         $user = User::findOrFail( auth()->user()->id);
+
+         $user->fill($request->only(['name']));
+
+         if(!empty($request->password)):
+            $user->password = bcrypt($request->password);
+         endif;
+
+         $previousImage = null;
+
+         DB::beginTransaction();
+
+        //  try{
+             if($request->hasFile('imageFile')):
+
+                 //Clear previous image if required
+                 if($user->image):
+                     $previousImage = $user->image;
+                 endif;
+
+                 $filename = uniqid('user-profile-' , true). '.' . $request->file('imageFile')->getClientOriginalExtension();
+
+                 $path = public_path('assets/images/profile');
+
+                  if($user->image):
+                     $previousImage = public_path('assets/images/profile/'. $user->image);
+                 endif;
+
+                 if(!file_exists($path)):
+                     mkdir($path , 777,true);
+                 endif;
+                 $request->file('imageFile')->move($path , $filename);
+
+                 $user->image = $filename;
+
+             endif;
+
+             $user->save();
+
+             //If had previous file, Clean it
+             if($previousImage):
+                 @unlink($previousImage);
+             endif;
+
+             DB::commit();
+
+             return response()->json(['message' => 'Profile Updated Successfully.' , 'url' => route('profile')]);
+
+
+        //  } catch (\Exception $ex) {
+
+        //      log_error_message($ex);
+
+        //      if($request->hasFile('imageFile') && $user->image):
+        //          @unlink(public_path('common/images/profile/' . $user->image ));
+        //      endif;
+
+        //      DB::rollBack();
+
+        //      return json_error('Unable to save the information.');
+
+        //  }
+
+    }
+
+    public function getProfileInfo(){
+
+        return response()->json(['data' => auth()->user()]);
+
     }
 }

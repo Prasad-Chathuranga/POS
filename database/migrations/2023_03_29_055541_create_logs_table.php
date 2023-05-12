@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('logs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('customer_id')->default(null);
+            $table->unsignedBigInteger('customer_id')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->string('table')->nullable();
             $table->string('event');

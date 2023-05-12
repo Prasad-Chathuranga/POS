@@ -22,8 +22,8 @@
 
     th {
         padding: 16px;
-        background-color: #8f97e4;
-        color: white;
+        background-color: rgba(182, 189, 255, 0.525);
+        /* color: white; */
         text-align: left;
         font-size: 16px;
         font-family: Arial, Helvetica, sans-serif;

@@ -32,6 +32,7 @@
                                 <th>Email</th>
                                 <th>Mobile</th>
                                 <th>Phone</th>
+                                <th>Earnings</th>
                                 <th>Active</th>
                             </tr>
                         </thead>
@@ -51,6 +52,7 @@
                                     <td>{{ $customer->email }}</td>
                                     <td>{{ $customer->mobile }}</td>
                                      <td>{{ $customer->phone }}</td>
+                                     <td>{{ number_format($customer->earnings,2) }}</td>
                                     <td>
                                         @if($customer->active)
                                             <label class="badge badge-success">
